@@ -1,3 +1,5 @@
+import commopnMemberTypes from "./commonMemberTypes";
+
 interface IPlayer {
   game: IGame;
   width: number;
@@ -11,10 +13,10 @@ interface IPlayer {
   weight: number;
   currentState: Sitting | Running | Jumping | Falling;
   states: Array<Sitting | Running | Jumping | Falling>;
-  frameX: number;
-  frameY: number;
+  frameX: commopnMemberTypes.frameX;
+  frameY: commopnMemberTypes.frameY;
   maxFrame: number;
-  fps: number;
-  frameInterval: number;
-  frameTimer: number;
+  fps: commopnMemberTypes.fps;
+  frameInterval: commopnMemberTypes.frameInterval;
+  frameTimer: commopnMemberTypes.frameTimer;
 }
