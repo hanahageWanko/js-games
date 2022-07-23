@@ -1,4 +1,5 @@
-import { IGame } from "./@types/main";
+import { IGame } from "../@types/main";
+import { IPlayer } from "../@types/player";
 import { Sitting, Running, Jumping, Falling } from "./playerStates";
 
 export class Player implements IPlayer {

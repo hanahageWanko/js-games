@@ -1,4 +1,4 @@
-import { Player } from "./player";
+import { Player } from "./player/player";
 import { InputHandler } from "./input";
 import { Background } from "./background";
 import { IGame } from "./@types/main";
