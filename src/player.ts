@@ -1,3 +1,5 @@
+import { Sitting, Running, Jumping, Falling } from "./playerStates";
+
 export class Player {
   protected game: any;
   protected width: number;
@@ -9,6 +11,19 @@ export class Player {
   protected speed: number;
   protected maxSpeed: number;
   protected weight: number;
+  protected currentState: any;
+  protected states: (Sitting | Running | Jumping | Falling)[] = [
+    new Sitting(this),
+    new Running(this),
+    new Jumping(this),
+    new Falling(this),
+  ];
+  protected frameX: number;
+  protected frameY: number;
+  protected maxFrame: number;
+  protected fps: number;
+  protected frameInterval: number;
+  protected frameTimer: number;
 
   constructor(game: any) {
     this.game = game;
@@ -17,15 +32,36 @@ export class Player {
     // キャラクターの横軸の設置位置
     this.x = 0;
     // キャラクターの縦軸の設置位置(静止ポジション)
-    this.y = this.game.height - this.height;
+    this.y = this.game.height - this.height - this.game.groundMargin;
     // キャラクターの
     this.vy = 0;
     this.weight = 1;
     this.image = document.getElementById("player");
+    // キャラクターフレームの横軸
+    this.frameX = 0;
+    // キャラクターフレームの縦軸
+    this.frameY = 0;
+    this.maxFrame = 0;
     this.speed = 0;
     this.maxSpeed = 10;
+    this.fps = 20;
+    this.frameInterval = 1000 / this.fps;
+    this.frameTimer = 0;
+
+    // ステータス管理用クラスにキャラクター管理クラスを渡す
+    this.states = [
+      new Sitting(this),
+      new Running(this),
+      new Jumping(this),
+      new Falling(this),
+    ];
+    this.currentState = this.states[0];
+    // キャラクター状態管理クラスのenterメソッドを初期実行
+    this.currentState.enter();
   }
-  update(input: { includes: (arg0: string) => any }): void {
+  update(input: { includes: (arg0: string) => any }, deltaTime: number): void {
+    // キャラクターの状態制御に、入力キー情報を渡す
+    this.currentState.handleInput(input);
     //横移動
     this.x += this.speed;
     // 配列にArrowRightが含まれている場合trueを返却
@@ -43,19 +79,25 @@ export class Player {
 
     //縦移動
     this.y += this.vy;
-    // 配列にArrowUpが含まれており、キャラの縦位置が画面の縦領域に対し余裕がある場合、キャラ位置を上に移動する
-    if (input.includes("ArrowUp") && this.onGround()) this.vy -= 20;
-    this.y += this.vy;
     // キャラの縦方向の位置が静止ポジションより高い場合、重力を足して、落下させる
     if (!this.onGround()) this.vy += this.weight;
     else this.vy = 0;
+
+    // 稼働アニメーション
+    if (this.frameTimer > this.frameInterval) {
+      this.frameTimer = 0;
+      if (this.frameX < this.maxFrame) this.frameX++;
+      else this.frameX = 0;
+    } else {
+      this.frameTimer += deltaTime;
+    }
   }
   draw(context: CanvasRenderingContext2D): void {
     // 使用範囲を指定してイメージを描画する
     context.drawImage(
       this.image as CanvasImageSource,
-      0,
-      0,
+      this.frameX * this.width,
+      this.frameY * this.height,
       this.width,
       this.height,
       this.x,
@@ -65,7 +107,14 @@ export class Player {
     );
   }
   onGround(): boolean {
-    // キャラの縦位置が静止ポジションにあるまたは静止ポジションより少ない場合、trueを返却
-    return this.y >= this.game.height - this.height;
+    // キャラの縦位置が[静止ポジションにある]または[静止ポジションより少ない場合]、trueを返却
+    return this.y >= this.game.height - this.height - this.game.groundMargin;
+  }
+  setState(state: number, speed: number) {
+    // キャラクターの現在状態に現在の状態クラスを代入
+    // 現在の状態に合わせたイメージフレームをセット
+    this.currentState = this.states[state];
+    this.game.speed = this.game.maxSpeed * 10;
+    this.currentState.enter();
   }
 }
