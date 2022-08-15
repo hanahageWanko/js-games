@@ -114,7 +114,8 @@ export class Player {
     // キャラクターの現在状態に現在の状態クラスを代入
     // 現在の状態に合わせたイメージフレームをセット
     this.currentState = this.states[state];
-    this.game.speed = this.game.maxSpeed * 10;
+    this.game.speed = speed * 10;
+    console.log(this.game.speed);
     this.currentState.enter();
   }
 }

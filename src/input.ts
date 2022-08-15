@@ -1,12 +1,14 @@
 export class InputHandler {
-  keys: any;
+  public keys: string[];
   constructor() {
     this.keys = [];
     /*
      * キーボードが押された場合、配列に押されたキーを挿入する
      * 十字キーまたはエンターのみ対応
      */
-    window.addEventListener("keydown", (e) => {
+
+    // window.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", (e) => {
       if (
         (e.key === "ArrowDown" ||
           e.key === "ArrowUp" ||
@@ -17,14 +19,14 @@ export class InputHandler {
       ) {
         this.keys.push(e.key);
       }
-      console.log(e.key, this.keys);
     });
 
     /*
      * 押されたキーが戻る場合、配列のキーを削除する
      * 十字キーまたはエンターのみ対応
      */
-    window.addEventListener("keyup", (e) => {
+    // window.addEventListener("keyup", (e) => {
+    document.addEventListener("keyup", (e) => {
       if (
         e.key === "ArrowDown" ||
         e.key === "ArrowUp" ||
@@ -34,7 +36,6 @@ export class InputHandler {
       ) {
         this.keys.splice(this.keys.indexOf(e.key), 1);
       }
-      console.log(e.key, this.keys);
     });
   }
 }
