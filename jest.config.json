@@ -4,8 +4,5 @@
   "moduleDirectories": ["src", "node_modules"],
   "moduleFileExtensions": ["js", "ts"],
   "preset": "ts-jest",
-  "testEnvironment": "jest-environment-jsdom",
-  "collectCoverage": true,
-  "collectCoverageFrom": ["src/**/*.{js,ts}"],
-  "coverageDirectory": "coverage"
+  "testEnvironment": "jest-environment-jsdom"
 }
