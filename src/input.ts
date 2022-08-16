@@ -15,7 +15,7 @@ export class InputHandler {
           e.key === "ArrowLeft" ||
           e.key === "ArrowRight" ||
           e.key === "Enter") &&
-        this.keys.indexOf(e.key) === -1
+        !this.keys.includes(e.key)
       ) {
         this.keys.push(e.key);
       }
