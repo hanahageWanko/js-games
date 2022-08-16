@@ -1,18 +1,19 @@
+import { IGame } from "./@types/main";
 // 背景等レイヤー統括クラス
 class Layer {
-  game: any;
+  game: IGame;
   width: number;
   height: number;
   speedModifier: number;
-  image: HTMLElement | null;
+  image: CanvasImageSource;
   x: number;
   y: number;
   constructor(
-    game: any,
+    game: IGame,
     width: number,
     height: number,
     speedModifier: number,
-    image: HTMLElement | null
+    image: CanvasImageSource
   ) {
     this.game = game;
     this.width = width;
@@ -23,21 +24,15 @@ class Layer {
     this.x = 0;
     this.y = 0;
   }
-  update() {
+
+  update(): void {
     // 移動距離が画像幅を超えた場合、移動距離を0にする
     if (this.x < -this.width) this.x = 0;
     // スピード設定値 * 調整値分だけレイヤー画像をマイナス側に移動させる
     else this.x -= this.game.speed * this.speedModifier;
   }
-  draw(context: {
-    drawImage: (
-      arg0: HTMLElement | null,
-      arg1: number,
-      arg2: number,
-      arg3: number,
-      arg4: number
-    ) => void;
-  }) {
+
+  draw(context: CanvasRenderingContext2D): void {
     context.drawImage(this.image, this.x, this.y, this.width, this.height);
     // 移動距離分画像をずらして表示
     context.drawImage(
@@ -51,7 +46,7 @@ class Layer {
 }
 
 export class Background {
-  game: any;
+  game: IGame;
   width: number;
   height: number;
   backgroundLayers: Layer[];
@@ -65,7 +60,7 @@ export class Background {
   layer3: Layer;
   layer4: Layer;
   layer5: Layer;
-  constructor(game: any) {
+  constructor(game: IGame) {
     this.game = game;
     this.width = 1667;
     this.height = 500;
@@ -117,22 +112,24 @@ export class Background {
       this.layer5,
     ];
   }
-  update() {
+
+  update(): void {
     this.backgroundLayers.forEach((layer: Layer): void => {
       layer.update();
     });
   }
+
   draw(context: {
     drawImage: (
-      arg0: HTMLElement | null,
+      arg0: CanvasImageSource,
       arg1: number,
       arg2: number,
       arg3: number,
       arg4: number
     ) => void;
-  }) {
+  }): void {
     this.backgroundLayers.forEach((layer: Layer): void => {
-      layer.draw(context);
+      layer.draw(context as CanvasRenderingContext2D);
     });
   }
 }
