@@ -12,6 +12,8 @@ interface IGame {
   maxSpeed: number;
   background: Background;
   game: Game;
+  enemyTimer: number;
+  enemyInterval: number;
 
   update: (deltaTime: number) => void;
 
