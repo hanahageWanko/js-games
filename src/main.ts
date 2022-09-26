@@ -1,7 +1,14 @@
+import { IGame } from "./@types/main";
 import { Player } from "./player/player";
 import { InputHandler } from "./input";
 import { Background } from "./background";
-import { IGame } from "./@types/main";
+import {
+  Enemy,
+  FlyingEnemy,
+  Groundenemy,
+  ClimbingEnemy,
+} from "./enemy/enemies";
+import { IEnemy } from "./@types/enemy";
 
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
@@ -14,15 +21,24 @@ window.addEventListener("load", function () {
    * Gameのレイアウトを定義
    */
   class Game implements IGame {
-    width: number;
-    height: number;
+    width;
+    height;
     player: Player;
     input: InputHandler;
-    groundMargin: number;
-    speed: number;
-    maxSpeed: number;
+    groundMargin;
+    speed;
+    maxSpeed;
     background: Background;
     game!: Game;
+    enemies: Enemy[];
+    enemyTimer = 0;
+    enemyInterval = 1000;
+
+    /**
+     *
+     * @param width number
+     * @param height number
+     */
     constructor(width: number, height: number) {
       this.width = width;
       this.height = height;
@@ -32,21 +48,60 @@ window.addEventListener("load", function () {
       this.speed = 0;
       // ゲームのマックススピード設定値
       this.maxSpeed = 3;
+      // 背景画像の設定
       this.background = new Background(this);
+      // プレイヤーのキャラクター
       this.player = new Player(this);
+      // プレイヤーの入出力制御
       this.input = new InputHandler();
+      // 画面に出力されている敵
+      this.enemies = [];
+      // 敵キャラ制御時間
+      this.enemyTimer = 0;
     }
 
+    /**
+     * キャラクターの状態を更新
+     * @param deltaTime number
+     */
     update(deltaTime: number): void {
       this.background.update();
-      // キャラクターの状態を更新
       this.player.update(this.input.keys, deltaTime);
+      // 敵キャラのタイマーが、敵キャラ出現インターバルを超えた場合
+      if (this.enemyTimer > this.enemyInterval) {
+        this.addEnemy();
+        this.enemyTimer = 0;
+      } else {
+        this.enemyTimer += deltaTime;
+      }
+      // 敵キャラ
+      this.enemies.forEach((enemy) => {
+        enemy.update(deltaTime);
+        // 敵キャラが画面外となった場合、敵キャラ出力用配列から削除する
+        if (enemy.markedForDeletion)
+          this.enemies.splice(this.enemies.indexOf(enemy), 1);
+      });
     }
 
+    /**
+     * キャラクターを出力
+     * @param context CanvasRenderingContext2D
+     */
     draw(context: CanvasRenderingContext2D): void {
       this.background.draw(context);
       // キャラクターを出力
       this.player.draw(context);
+      // 敵キャラの出力
+      this.enemies.forEach((enemy) => {
+        enemy.draw(context);
+      });
+    }
+
+    /**
+     * 画面に出力する敵の追加
+     */
+    addEnemy(): void {
+      this.enemies.push(new FlyingEnemy(this));
     }
   }
 
