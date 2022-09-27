@@ -36,7 +36,7 @@ export class Player implements IPlayer {
     this.x = 0;
     // キャラクターの縦軸の設置位置(静止ポジション)
     this.y = this.game.height - this.height - this.game.groundMargin;
-    // キャラクターの
+    // キャラクターの現在位置
     this.vy = 0;
     this.weight = 1;
     this.image = document.getElementById("player") as CanvasImageSource;

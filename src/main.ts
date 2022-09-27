@@ -5,7 +5,7 @@ import { Background } from "./background";
 import {
   Enemy,
   FlyingEnemy,
-  Groundenemy,
+  GroundEnemy,
   ClimbingEnemy,
 } from "./enemy/enemies";
 import { IEnemy } from "./@types/enemy";
@@ -101,6 +101,15 @@ window.addEventListener("load", function () {
      * 画面に出力する敵の追加
      */
     addEnemy(): void {
+      // 出現する種別の条件を設定
+      // speedが0以上、0.5以下の時、地上の敵を出力
+      if (this.speed > 0 && Math.random() < 0.5) {
+        this.enemies.push(new GroundEnemy(this));
+      } else if (this.speed > 0) {
+        // speedが0より大きい時、上下する敵を出力
+        this.enemies.push(new ClimbingEnemy(this));
+      }
+      // 飛行する敵は条件に関係なく出力
       this.enemies.push(new FlyingEnemy(this));
     }
   }
