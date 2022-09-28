@@ -43,7 +43,11 @@ export class Enemy implements IEnemy {
    */
   update(deltaTime: number): void {
     //movement
-    this.x -= this.speedX + this.game!.speed;
+    /**
+     * default
+     * this.x -= this.speedX + this.game!.speed / 2;
+     */
+    this.x -= this.speedX + this.game!.speed / 2; // slowmode
     this.y += this.speedY;
     if (this.frameTimer > this.frameInterval) {
       this.frameTimer = 0;
