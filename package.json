@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=development",
     "start": "webpack serve --mode=development",
-    "test": "jest --verbose --coverage --runInBand",
+    "test": "jest --verbose --coverage --runInBand --silent=false",
     "lint": "eslint \"src/**/*.{js,ts}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,ts}\"",
     "format": "prettier --write \"src/**/*.{js,ts}\""
