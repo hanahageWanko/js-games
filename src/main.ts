@@ -33,6 +33,7 @@ window.addEventListener("load", function () {
     enemies: Enemy[];
     enemyTimer = 0;
     enemyInterval = 1000;
+    debug;
 
     /**
      *
@@ -53,13 +54,13 @@ window.addEventListener("load", function () {
       // プレイヤーのキャラクター
       this.player = new Player(this);
       // プレイヤーの入出力制御
-      this.input = new InputHandler();
+      this.input = new InputHandler(this);
       // 画面に出力されている敵
       this.enemies = [];
       // 敵キャラ制御時間
       this.enemyTimer = 0;
+      this.debug = true;
     }
-
     /**
      * キャラクターの状態を更新
      * @param deltaTime number

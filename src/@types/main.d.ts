@@ -2,7 +2,11 @@ import { Player } from "../Player";
 import { Background } from "../background";
 import { InputHandler } from "../input";
 
-interface IGame {
+type IGameRequired = Required<{
+  debug: boolean;
+}>;
+
+type = Partial<{
   width: number;
   height: number;
   player: Player;
@@ -18,4 +22,6 @@ interface IGame {
   update: (deltaTime: number) => void;
 
   draw: (context: CanvasRenderingContext2D) => void;
-}
+}>;
+
+type IGame = IGameRequired & IGamePartial;

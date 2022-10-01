@@ -98,6 +98,9 @@ export class Player implements IPlayer {
   }
 
   draw(context: CanvasRenderingContext2D): void {
+    if (this.game.debug) {
+      context.strokeRect(this.x, this.y, this.width, this.height);
+    }
     // 使用範囲を指定してイメージを描画する
     context.drawImage(
       this.image,

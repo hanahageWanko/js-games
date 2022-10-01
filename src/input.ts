@@ -1,6 +1,11 @@
+import { IGame } from "./@types/main";
+
 export class InputHandler {
   public keys: string[];
-  constructor() {
+  game;
+
+  constructor(game: IGame) {
+    this.game = game;
     this.keys = [];
     /*
      * キーボードが押された場合、配列に押されたキーを挿入する
@@ -18,6 +23,8 @@ export class InputHandler {
         !this.keys.includes(e.key)
       ) {
         this.keys.push(e.key);
+      } else if (e.key === "e") {
+        this.game.debug = !this.game.debug;
       }
     });
 
