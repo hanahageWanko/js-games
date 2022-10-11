@@ -4,9 +4,6 @@ import { InputHandler } from "../input";
 
 type IGameRequired = Required<{
   debug: boolean;
-}>;
-
-type = Partial<{
   width: number;
   height: number;
   player: Player;
@@ -18,9 +15,10 @@ type = Partial<{
   game: Game;
   enemyTimer: number;
   enemyInterval: number;
+}>;
 
+type IGamePartial = Partial<{
   update: (deltaTime: number) => void;
-
   draw: (context: CanvasRenderingContext2D) => void;
 }>;
 

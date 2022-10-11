@@ -73,35 +73,35 @@ export class Background {
       this.game,
       this.width,
       this.height,
-      0, //default 0
+      0, // default 0
       this.layer1image as CanvasImageSource
     );
     this.layer2 = new Layer(
       this.game,
       this.width,
       this.height,
-      0.1, //default 0.2
+      0.1, // default 0.2
       this.layer2image as CanvasImageSource
     );
     this.layer3 = new Layer(
       this.game,
       this.width,
       this.height,
-      0.2, //default 0.4
+      0.2, // default 0.4
       this.layer3image as CanvasImageSource
     );
     this.layer4 = new Layer(
       this.game,
       this.width,
       this.height,
-      0.3, //default 0.6
+      0.3, // default 0.6
       this.layer4image as CanvasImageSource
     );
     this.layer5 = new Layer(
       this.game,
       this.width,
       this.height,
-      0.4, //default 0.8
+      0.4, // default 0.8
       this.layer5image as CanvasImageSource
     );
     this.backgroundLayers = [

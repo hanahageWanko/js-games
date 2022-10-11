@@ -19,8 +19,9 @@ export class Enemy implements IEnemy {
   width;
   height;
   markedForDeletion;
-  game: IGame | undefined;
-  constructor() {
+  game: IGame;
+  constructor(game: IGame) {
+    this.game = game;
     this.frameX = 0;
     this.frameY = 0;
     this.fps = 20;
@@ -42,12 +43,12 @@ export class Enemy implements IEnemy {
    * @param deltaTime number
    */
   update(deltaTime: number): void {
-    //movement
+    // movement
     /**
      * default
-     * this.x -= this.speedX + this.game!.speed / 2;
+     * this.x -= this.speedX + this.game.speed / 2;
      */
-    this.x -= this.speedX + this.game!.speed / 2; // slowmode
+    this.x -= this.speedX + this.game.speed / 2; // slowmode
     this.y += this.speedY;
     if (this.frameTimer > this.frameInterval) {
       this.frameTimer = 0;
@@ -66,7 +67,7 @@ export class Enemy implements IEnemy {
    */
   draw(context: CanvasRenderingContext2D): void {
     context.drawImage(
-      this.image!,
+      this.image as CanvasImageSource,
       this.frameX * this.width,
       0,
       this.width,
@@ -85,9 +86,8 @@ export class Enemy implements IEnemy {
 export class FlyingEnemy extends Enemy {
   angle: number;
   va: number;
-
   constructor(game: IGame) {
-    super();
+    super(game);
     this.game = game;
     this.width = 60;
     this.height = 44;
@@ -114,7 +114,7 @@ export class FlyingEnemy extends Enemy {
 
 export class GroundEnemy extends Enemy {
   constructor(game: IGame) {
-    super();
+    super(game);
     this.game = game;
     this.width = 60;
     this.height = 87;
@@ -129,7 +129,7 @@ export class GroundEnemy extends Enemy {
 
 export class ClimbingEnemy extends Enemy {
   constructor(game: IGame) {
-    super();
+    super(game);
     this.game = game;
     this.width = 120;
     this.height = 144;
@@ -145,7 +145,7 @@ export class ClimbingEnemy extends Enemy {
 
   update(deltaTime: number): void {
     super.update(deltaTime);
-    if (this.y > this.game!.height - this.height - this.game!.groundMargin)
+    if (this.y > this.game.height - this.height - this.game.groundMargin)
       this.speedY *= -1;
     if (this.y < -this.height) this.markedForDeletion = true;
   }

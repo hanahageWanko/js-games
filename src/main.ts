@@ -8,7 +8,6 @@ import {
   GroundEnemy,
   ClimbingEnemy,
 } from "./enemy/enemies";
-import { IEnemy } from "./@types/enemy";
 
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
@@ -61,6 +60,7 @@ window.addEventListener("load", function () {
       this.enemyTimer = 0;
       this.debug = true;
     }
+
     /**
      * キャラクターの状態を更新
      * @param deltaTime number
