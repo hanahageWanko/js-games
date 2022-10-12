@@ -66,6 +66,10 @@ export class Enemy implements IEnemy {
    * @param context CanvasRenderingContext2D
    */
   draw(context: CanvasRenderingContext2D): void {
+    if (this.game.debug) {
+      context.strokeRect(this.x, this.y, this.width, this.height);
+    }
+
     context.drawImage(
       this.image as CanvasImageSource,
       this.frameX * this.width,

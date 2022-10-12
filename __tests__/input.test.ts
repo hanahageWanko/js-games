@@ -1,5 +1,7 @@
 import { IGame } from "../src/@types/main";
 import { InputHandler } from "../src/input";
+import { Player } from "../src/player/player";
+import { Background } from "../src/background";
 
 let judge: boolean;
 const targetKeyArray: string[] = [
@@ -11,13 +13,33 @@ const targetKeyArray: string[] = [
 ];
 
 const targetKeyArrayDebug: string[] = ["e"];
-
 const unEspectedKeyArray: string[] = ["X", "1", "@"];
 
 class Game implements IGame {
   debug = true;
+  width: 0;
+  height: 0;
+  player: Player;
+  input: InputHandler;
+  groundMargin: number;
+  speed: 0;
+  maxSpeed: 0;
+  background: Background;
+  game!: Game;
+  enemyTimer: 0;
+  enemyInterval: 0;
   constructor() {
     this.debug = true;
+    this.width = 0;
+    this.height = 0;
+    this.player = new Player(this);
+    this.input = new InputHandler(this);
+    this.groundMargin = 0;
+    this.speed = 0;
+    this.maxSpeed = 0;
+    this.background = new Background(this);
+    this.enemyTimer = 0;
+    this.enemyInterval = 0;
   }
 }
 const game = new Game();
