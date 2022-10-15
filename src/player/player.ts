@@ -1,6 +1,15 @@
 import { IGame } from "../@types/main";
+import { IEnemy } from "../@types/enemy";
 import { IPlayer } from "../@types/player";
-import { Sitting, Running, Jumping, Falling } from "./playerStates";
+import {
+  Sitting,
+  Running,
+  Jumping,
+  Falling,
+  Rolling,
+  Diving,
+  Hit,
+} from "./playerStates";
 
 export class Player implements IPlayer {
   game;
@@ -13,14 +22,8 @@ export class Player implements IPlayer {
   speed;
   maxSpeed;
   weight;
-  currentState;
-  states = [
-    new Sitting(this),
-    new Running(this),
-    new Jumping(this),
-    new Falling(this),
-  ];
-
+  currentState: Sitting | Running | Jumping | Falling | Rolling | Diving | Hit;
+  states;
   frameX;
   frameY;
   maxFrame;
@@ -53,17 +56,19 @@ export class Player implements IPlayer {
 
     // ステータス管理用クラスにキャラクター管理クラスを渡す
     this.states = [
-      new Sitting(this),
-      new Running(this),
-      new Jumping(this),
-      new Falling(this),
+      new Sitting(this.game),
+      new Running(this.game),
+      new Jumping(this.game),
+      new Falling(this.game),
+      new Rolling(this.game),
+      new Diving(this.game),
+      new Hit(this.game),
     ];
-    this.currentState = this.states[0];
-    // キャラクター状態管理クラスのenterメソッドを初期実行
-    this.currentState.enter();
+    this.currentState = new Sitting(this.game);
   }
 
   update(input: string[], deltaTime: number): void {
+    this.checkCollision();
     // キャラクターの状態制御に、入力キー情報を渡す
     this.currentState.handleInput(input as unknown as string);
     // 横移動
@@ -126,5 +131,25 @@ export class Player implements IPlayer {
     this.currentState = this.states[state];
     this.game.speed = speed * 10;
     this.currentState.enter();
+  }
+
+  /**
+   * 敵との接触判定
+   */
+  checkCollision() {
+    this.game.enemies.forEach((enemy: IEnemy) => {
+      if (
+        enemy.x < this.x + this.width &&
+        enemy.x + enemy.width > this.x &&
+        enemy.y < this.y + this.height &&
+        enemy.y + enemy.height > this.y
+      ) {
+        // 衝突判定
+        enemy.markedForDeletion = true;
+        this.game.score++;
+      } else {
+        // 衝突時以外の判定
+      }
+    });
   }
 }

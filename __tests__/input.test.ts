@@ -1,7 +1,9 @@
 import { IGame } from "../src/@types/main";
+import { Enemy } from "../src/enemy/enemies";
 import { InputHandler } from "../src/input";
 import { Player } from "../src/player/player";
 import { Background } from "../src/background";
+import { Particle } from "../src/particles";
 
 let judge: boolean;
 const targetKeyArray: string[] = [
@@ -25,9 +27,13 @@ class Game implements IGame {
   speed: 0;
   maxSpeed: 0;
   background: Background;
-  game!: Game;
+  game!: this;
+  enemies: Enemy[];
   enemyTimer: 0;
   enemyInterval: 0;
+  score;
+  fontColor;
+  particles = [];
   constructor() {
     this.debug = true;
     this.width = 0;
@@ -38,8 +44,12 @@ class Game implements IGame {
     this.speed = 0;
     this.maxSpeed = 0;
     this.background = new Background(this);
+    this.game = this;
+    this.enemies = [];
     this.enemyTimer = 0;
     this.enemyInterval = 0;
+    this.score = 0;
+    this.fontColor = "black";
   }
 }
 const game = new Game();

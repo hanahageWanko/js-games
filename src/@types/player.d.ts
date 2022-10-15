@@ -11,8 +11,8 @@ interface IPlayer {
   speed: number;
   maxSpeed: number;
   weight: number;
-  currentState: Sitting | Running | Jumping | Falling;
-  states: Array<Sitting | Running | Jumping | Falling>;
+  currentState: Sitting | Running | Jumping | Falling | Rolling | Diving | Hit;
+  states: Array<Sitting | Running | Jumping | Falling | Rolling | Diving | Hit>;
   frameX: commopnMemberTypes.frameX;
   frameY: commopnMemberTypes.frameY;
   maxFrame: number;

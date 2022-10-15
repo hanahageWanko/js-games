@@ -1,13 +1,16 @@
 import { IGame } from "./@types/main";
+import { IEnemy } from "./@types/enemy";
 import { Player } from "./player/player";
 import { InputHandler } from "./input";
 import { Background } from "./background";
+import { Particle } from "./particles";
 import {
   Enemy,
   FlyingEnemy,
   GroundEnemy,
   ClimbingEnemy,
 } from "./enemy/enemies";
+import { Ui } from "./Ui";
 
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
@@ -29,10 +32,14 @@ window.addEventListener("load", function () {
     maxSpeed;
     background: Background;
     game!: Game;
-    enemies: Enemy[];
+    enemies: IEnemy[];
+    particles = [];
     enemyTimer = 0;
     enemyInterval = 1000;
     debug;
+    score;
+    ui: Ui;
+    fontColor: string;
 
     /**
      *
@@ -54,11 +61,18 @@ window.addEventListener("load", function () {
       this.player = new Player(this);
       // プレイヤーの入出力制御
       this.input = new InputHandler(this);
+      this.ui = new Ui(this);
       // 画面に出力されている敵
       this.enemies = [];
       // 敵キャラ制御時間
       this.enemyTimer = 0;
+      // デバッグモードフラグON
       this.debug = true;
+      this.score = 0;
+      this.fontColor = "black";
+      this.player.currentState = this.player.states[0];
+      // キャラクター状態管理クラスのenterメソッドを初期実行
+      this.player.currentState.enter();
     }
 
     /**
@@ -76,12 +90,20 @@ window.addEventListener("load", function () {
         this.enemyTimer += deltaTime;
       }
       // 敵キャラ
-      this.enemies.forEach((enemy) => {
-        enemy.update(deltaTime);
+      this.enemies.forEach((enemy: IEnemy) => {
+        enemy.update!(deltaTime);
         // 敵キャラが画面外となった場合、敵キャラ出力用配列から削除する
         if (enemy.markedForDeletion)
-          this.enemies.splice(this.enemies.indexOf(enemy), 1);
+          this.enemies.splice((this.enemies as Enemy[]).indexOf(enemy), 1);
       });
+      // handle particles
+      this.particles.forEach((particle: Particle, index: number) => {
+        particle.update();
+        if (particle.markedForDeletion) {
+          this.particles.splice(index, 1);
+        }
+      });
+      console.log(this.particles);
     }
 
     /**
@@ -93,9 +115,14 @@ window.addEventListener("load", function () {
       // キャラクターを出力
       this.player.draw(context);
       // 敵キャラの出力
-      this.enemies.forEach((enemy) => {
+      this.enemies.forEach((enemy: IEnemy) => {
         enemy.draw(context);
       });
+      this.particles.forEach((particle: Particle) => {
+        particle.draw(context);
+      });
+      //Uiパーツの出力
+      this.ui.draw(context);
     }
 
     /**
@@ -123,7 +150,6 @@ window.addEventListener("load", function () {
     // 最初にコールバック関数が呼び出された時点の引数（タイムスタンプ）と
     // 以降に呼び出されたコールバック関数の引数の差分から経過時間を取得することができる。
     const deltaTime = timeStamp - lastTime;
-    // console.log(deltaTime);
     lastTime = timeStamp;
     // Game画面を四角形にクリアする
     if (ctx != null) ctx.clearRect(0, 0, canvas.width, canvas.height);
