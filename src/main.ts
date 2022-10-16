@@ -34,6 +34,7 @@ window.addEventListener("load", function () {
     game!: Game;
     enemies: IEnemy[];
     particles = [];
+    maxParticles = 50;
     enemyTimer = 0;
     enemyInterval = 1000;
     debug;
@@ -103,7 +104,9 @@ window.addEventListener("load", function () {
           this.particles.splice(index, 1);
         }
       });
-      console.log(this.particles);
+      if (this.particles.length > this.maxParticles) {
+        this.particles = this.particles.slice(0, this.maxParticles);
+      }
     }
 
     /**

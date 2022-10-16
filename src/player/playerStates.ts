@@ -1,5 +1,5 @@
 import { Player } from "./player";
-import { Dust } from "../particles";
+import { Dust, Fire } from "../particles";
 import { IGame } from "../@types/main";
 interface statesI {
   SITTING: number;
@@ -196,6 +196,13 @@ export class Rolling extends State {
    * @param input string
    */
   handleInput(input: string): void {
+    this.game.particles.unshift(
+      new Fire(
+        this.game,
+        this.game.player.x + this.game.player.width * 0.5,
+        this.game.player.y + this.game.player.height * 0.5
+      )
+    );
     // キャラの縦位置が[静止ポジションにある]または[静止ポジションより少ない場合]
     if (!input.includes("Enter") && this.game.player.onGround()) {
       // キャラクターのステータスをセット（キャラクターフレームを設定）する
