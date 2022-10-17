@@ -78,6 +78,7 @@ export class Player implements IPlayer {
     // 配列にArrowLeftが含まれている場合trueを返却
     else if (input.includes("ArrowLeft")) this.speed = -this.maxSpeed;
     else this.speed = 0;
+    // 水平の境界
     // キャラクターが画面の左端にある場合、キャラクターの位置を最も左端で固定する
     if (this.x < 0) this.x = 0;
     // ゲームの幅 - キャラクターの幅の減算値がキャラクターの位置よりも大きい場合
@@ -91,9 +92,12 @@ export class Player implements IPlayer {
     // キャラの縦方向の位置が静止ポジションより高い場合、重力を足して、落下させる
     if (!this.onGround()) this.vy += this.weight;
     else this.vy = 0;
-
-    // 稼働アニメーション
+    // 縦方向の境界
+    if (this.y > this.game.height - this.height - this.game.groundMargin) {
+      this.y = this.game.height - this.height - this.game.groundMargin;
+    }
     if (this.frameTimer > this.frameInterval) {
+      // 稼働アニメーション
       this.frameTimer = 0;
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = 0;
@@ -146,7 +150,14 @@ export class Player implements IPlayer {
       ) {
         // 衝突判定
         enemy.markedForDeletion = true;
-        this.game.score++;
+        if (
+          this.currentState === this.states[4] ||
+          this.currentState === this.states[5]
+        ) {
+          this.game.score++;
+        } else {
+          this.setState(6, 0);
+        }
       } else {
         // 衝突時以外の判定
       }

@@ -1,5 +1,5 @@
 import { Player } from "./player";
-import { Dust, Fire } from "../particles";
+import { Dust, Fire, Splash } from "../particles";
 import { IGame } from "../@types/main";
 interface statesI {
   SITTING: number;
@@ -138,6 +138,8 @@ export class Jumping extends State {
       this.game.player.setState(states.FALLING, 1);
     } else if (input.includes("Enter")) {
       this.game.player.setState(states.ROLLING, 2);
+    } else if (input.includes("ArrowDown")) {
+      this.game.player.setState(states.DIVING, 0);
     }
   }
 }
@@ -234,8 +236,9 @@ export class Diving extends State {
   enter(): void {
     // キャラクターフレームの設定
     this.game.player.frameX = 0;
-    this.game.player.frameY = 2;
+    this.game.player.frameY = 6;
     this.game.player.maxFrame = 6;
+    this.game.player.vy = 15;
   }
 
   /**
@@ -243,10 +246,29 @@ export class Diving extends State {
    * @param input string
    */
   handleInput(input: string): void {
+    this.game.particles.unshift(
+      new Fire(
+        this.game,
+        this.game.player.x + this.game.player.width * 0.5,
+        this.game.player.y + this.game.player.height * 0.5
+      )
+    );
     // キャラの縦位置が[静止ポジションにある]または[静止ポジションより少ない場合]
     if (this.game.player.onGround()) {
       // キャラクターのステータスをセット（キャラクターフレームを設定）する
-      this.game.player.setState(states.DIVING, 5);
+      this.game.player.setState(states.RUNNING, 1);
+      for (let i = 0; i < 30; i++) {
+        this.game.particles.unshift(
+          new Splash(
+            this.game,
+            this.game.player.x + this.game.player.width * 0.5,
+            this.game.player.y + this.game.player.height
+          )
+        );
+      }
+    } else if (input.includes("Enter") && this.game.player.onGround()) {
+      // キャラクターのステータスをセット（キャラクターフレームを設定）する
+      this.game.player.setState(states.ROLLING, 2);
     }
   }
 }
@@ -265,8 +287,8 @@ export class Hit extends State {
   enter(): void {
     // キャラクターフレームの設定
     this.game.player.frameX = 0;
-    this.game.player.frameY = 2;
-    this.game.player.maxFrame = 6;
+    this.game.player.frameY = 4;
+    this.game.player.maxFrame = 10;
   }
 
   /**
@@ -275,9 +297,11 @@ export class Hit extends State {
    */
   handleInput(input: string): void {
     // キャラの縦位置が[静止ポジションにある]または[静止ポジションより少ない場合]
-    if (this.game.player.onGround()) {
+    if (this.game.player.frameX >= 10 && this.game.player.onGround()) {
       // キャラクターのステータスをセット（キャラクターフレームを設定）する
-      this.game.player.setState(states.HIT, 6);
+      this.game.player.setState(states.RUNNING, 1);
+    } else if (input.includes("Enter") && !this.game.player.onGround()) {
+      this.game.player.setState(states.FALLING, 2);
     }
   }
 }
