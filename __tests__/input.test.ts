@@ -4,6 +4,7 @@ import { InputHandler } from "../src/input";
 import { Player } from "../src/player/player";
 import { Background } from "../src/background";
 import { Particle } from "../src/particles";
+import { CollisionAnimation } from "../src/CollisionAnimation";
 
 let judge: boolean;
 const targetKeyArray: string[] = [
@@ -29,11 +30,16 @@ class Game implements IGame {
   background: Background;
   game!: this;
   enemies: Enemy[];
-  enemyTimer: 0;
-  enemyInterval: 0;
+  collisions: CollisionAnimation[];
+  enemyTimer: number;
+  enemyInterval: number;
+  maxParticles: number;
   score;
   fontColor;
   particles = [];
+  time: number;
+  maxTime: number;
+  gameOver: boolean;
   constructor() {
     this.debug = true;
     this.width = 0;
@@ -46,10 +52,15 @@ class Game implements IGame {
     this.background = new Background(this);
     this.game = this;
     this.enemies = [];
+    this.collisions = [];
     this.enemyTimer = 0;
     this.enemyInterval = 0;
+    this.maxParticles = 50;
     this.score = 0;
     this.fontColor = "black";
+    this.time = 0;
+    this.maxTime = 2000;
+    this.gameOver = false;
   }
 }
 const game = new Game();

@@ -11,6 +11,7 @@ import {
   ClimbingEnemy,
 } from "./enemy/enemies";
 import { Ui } from "./Ui";
+import { CollisionAnimation } from "./CollisionAnimation";
 
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
@@ -34,14 +35,17 @@ window.addEventListener("load", function () {
     game!: Game;
     enemies: IEnemy[];
     particles = [];
-    maxParticles = 50;
-    enemyTimer = 0;
-    enemyInterval = 1000;
+    collisions: CollisionAnimation[];
+    maxParticles;
+    enemyTimer;
+    enemyInterval;
     debug;
     score;
-    ui: Ui;
-    fontColor: string;
-
+    ui;
+    fontColor;
+    time;
+    maxTime;
+    gameOver;
     /**
      *
      * @param width number
@@ -65,12 +69,20 @@ window.addEventListener("load", function () {
       this.ui = new Ui(this);
       // 画面に出力されている敵
       this.enemies = [];
+      this.collisions = [];
       // 敵キャラ制御時間
       this.enemyTimer = 0;
+
+      this.maxParticles = 50;
+      this.enemyInterval = 1000;
+
       // デバッグモードフラグON
-      this.debug = true;
+      this.debug = false;
       this.score = 0;
       this.fontColor = "black";
+      this.time = 0;
+      this.maxTime = 2000;
+      this.gameOver = false;
       this.player.currentState = this.player.states[0];
       // キャラクター状態管理クラスのenterメソッドを初期実行
       this.player.currentState.enter();
@@ -81,6 +93,10 @@ window.addEventListener("load", function () {
      * @param deltaTime number
      */
     update(deltaTime: number): void {
+      this.time += deltaTime;
+      if (this.time > this.maxTime) {
+        this.gameOver = true;
+      }
       this.background.update();
       this.player.update(this.input.keys, deltaTime);
       // 敵キャラのタイマーが、敵キャラ出現インターバルを超えた場合
@@ -105,8 +121,14 @@ window.addEventListener("load", function () {
         }
       });
       if (this.particles.length > this.maxParticles) {
-        this.particles = this.particles.slice(0, this.maxParticles);
+        this.particles.length = this.maxParticles;
       }
+      this.collisions.forEach((collision, index) => {
+        collision.update(deltaTime);
+        if (collision.markedForDeletion) {
+          this.collisions.splice(index, 1);
+        }
+      });
     }
 
     /**
@@ -123,6 +145,9 @@ window.addEventListener("load", function () {
       });
       this.particles.forEach((particle: Particle) => {
         particle.draw(context);
+      });
+      this.collisions.forEach((collision: CollisionAnimation) => {
+        collision.draw(context);
       });
       //Uiパーツの出力
       this.ui.draw(context);
@@ -167,6 +192,8 @@ window.addEventListener("load", function () {
        * 次の再描画が行われる前に次のアニメーションをする関数を呼び出す
        * 再帰的に本関数を呼び出す(そうしないとフレームが意図したタイミングで更新されない)
        */
+    }
+    if (!game.gameOver) {
       requestAnimationFrame(animate);
     }
   }

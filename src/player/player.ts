@@ -10,6 +10,7 @@ import {
   Diving,
   Hit,
 } from "./playerStates";
+import { CollisionAnimation } from "../CollisionAnimation";
 
 export class Player implements IPlayer {
   game;
@@ -74,9 +75,14 @@ export class Player implements IPlayer {
     // 横移動
     this.x += this.speed;
     // 配列にArrowRightが含まれている場合trueを返却
-    if (input.includes("ArrowRight")) this.speed = this.maxSpeed;
+    if (input.includes("ArrowRight") && this.currentState !== this.states[6])
+      this.speed = this.maxSpeed;
     // 配列にArrowLeftが含まれている場合trueを返却
-    else if (input.includes("ArrowLeft")) this.speed = -this.maxSpeed;
+    else if (
+      input.includes("ArrowLeft") &&
+      this.currentState !== this.states[6]
+    )
+      this.speed = -this.maxSpeed;
     else this.speed = 0;
     // 水平の境界
     // キャラクターが画面の左端にある場合、キャラクターの位置を最も左端で固定する
@@ -150,6 +156,13 @@ export class Player implements IPlayer {
       ) {
         // 衝突判定
         enemy.markedForDeletion = true;
+        this.game.collisions.push(
+          new CollisionAnimation(
+            this.game,
+            enemy.x + enemy.width * 0.5,
+            enemy.y + enemy.height * 0.5
+          )
+        );
         if (
           this.currentState === this.states[4] ||
           this.currentState === this.states[5]

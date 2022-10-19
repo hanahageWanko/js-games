@@ -15,11 +15,16 @@ type IGameRequired = Required<{
   background: Background;
   game: Game;
   enemies: Enemy[];
+  collisions: CollisionAnimation[];
   enemyTimer: number;
   enemyInterval: number;
+  maxParticles: number;
   score: number;
   fontColor: string;
   particles: Particle[];
+  time: number;
+  maxTime: number;
+  gameOver: boolean;
 }>;
 
 type IGamePartial = Partial<{
