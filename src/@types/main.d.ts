@@ -25,6 +25,7 @@ type IGameRequired = Required<{
   time: number;
   maxTime: number;
   gameOver: boolean;
+  lives: number;
 }>;
 
 type IGamePartial = Partial<{

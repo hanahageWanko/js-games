@@ -170,6 +170,10 @@ export class Player implements IPlayer {
           this.game.score++;
         } else {
           this.setState(6, 0);
+          this.game.lives--;
+          if (this.game.lives <= 0) {
+            this.game.gameOver = true;
+          }
         }
       } else {
         // 衝突時以外の判定

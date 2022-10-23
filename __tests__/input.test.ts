@@ -40,6 +40,7 @@ class Game implements IGame {
   time: number;
   maxTime: number;
   gameOver: boolean;
+  lives: number;
   constructor() {
     this.debug = true;
     this.width = 0;
@@ -61,6 +62,7 @@ class Game implements IGame {
     this.time = 0;
     this.maxTime = 2000;
     this.gameOver = false;
+    this.lives = 5;
   }
 }
 const game = new Game();

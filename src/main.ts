@@ -46,6 +46,7 @@ window.addEventListener("load", function () {
     time;
     maxTime;
     gameOver;
+    lives;
     /**
      *
      * @param width number
@@ -55,7 +56,7 @@ window.addEventListener("load", function () {
       this.width = width;
       this.height = height;
       // ゲーム画面最下部からのマージン
-      this.groundMargin = 80;
+      this.groundMargin = 40;
       // ゲームのスピード設定値
       this.speed = 0;
       // ゲームのマックススピード設定値
@@ -81,8 +82,10 @@ window.addEventListener("load", function () {
       this.score = 0;
       this.fontColor = "black";
       this.time = 0;
-      this.maxTime = 2000;
+      this.maxTime = 200000;
       this.gameOver = false;
+      // ライフの数
+      this.lives = 5;
       this.player.currentState = this.player.states[0];
       // キャラクター状態管理クラスのenterメソッドを初期実行
       this.player.currentState.enter();
