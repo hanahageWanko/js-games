@@ -2,6 +2,8 @@ import { Player } from "../Player";
 import { Background } from "../background";
 import { InputHandler } from "../input";
 import { Enemy } from "../enemy/enemies";
+import { FloatingMessage } from "../floatingMessage";
+import { IParticle } from "../@types/particles";
 
 type IGameRequired = Required<{
   debug: boolean;
@@ -16,13 +18,15 @@ type IGameRequired = Required<{
   game: Game;
   enemies: Enemy[];
   collisions: CollisionAnimation[];
+  floatingMessages: FloatingMessage[];
   enemyTimer: number;
   enemyInterval: number;
   maxParticles: number;
   score: number;
   fontColor: string;
-  particles: Particle[];
+  particles: IParticle[];
   time: number;
+  winningScore: number;
   maxTime: number;
   gameOver: boolean;
   lives: number;

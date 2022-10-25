@@ -1,9 +1,9 @@
 import { IGame } from "./@types/main";
 import { IEnemy } from "./@types/enemy";
+import { Particle } from "./particles";
 import { Player } from "./player/player";
 import { InputHandler } from "./input";
 import { Background } from "./background";
-import { Particle } from "./particles";
 import {
   Enemy,
   FlyingEnemy,
@@ -12,12 +12,14 @@ import {
 } from "./enemy/enemies";
 import { Ui } from "./Ui";
 import { CollisionAnimation } from "./CollisionAnimation";
+import { FloatingMessage } from "./floatingMessage";
+import { IFloatingMessage } from "./@types/floatingMessage";
 
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
   // canvasを2Dグラフィックを描画するためのメソッドやプロパティをもつオブジェクトを取得し、代入
   const ctx = canvas.getContext("2d");
-  canvas.width = 500;
+  canvas.width = 900;
   canvas.height = 500;
 
   /**
@@ -34,8 +36,9 @@ window.addEventListener("load", function () {
     background: Background;
     game!: Game;
     enemies: IEnemy[];
-    particles = [];
+    particles: Particle[];
     collisions: CollisionAnimation[];
+    floatingMessages: FloatingMessage[];
     maxParticles;
     enemyTimer;
     enemyInterval;
@@ -44,6 +47,7 @@ window.addEventListener("load", function () {
     ui;
     fontColor;
     time;
+    winningScore;
     maxTime;
     gameOver;
     lives;
@@ -71,6 +75,8 @@ window.addEventListener("load", function () {
       // 画面に出力されている敵
       this.enemies = [];
       this.collisions = [];
+      this.floatingMessages = [];
+      this.particles = [];
       // 敵キャラ制御時間
       this.enemyTimer = 0;
 
@@ -82,6 +88,7 @@ window.addEventListener("load", function () {
       this.score = 0;
       this.fontColor = "black";
       this.time = 0;
+      this.winningScore = 40;
       this.maxTime = 200000;
       this.gameOver = false;
       // ライフの数
@@ -111,27 +118,36 @@ window.addEventListener("load", function () {
       }
       // 敵キャラ
       this.enemies.forEach((enemy: IEnemy) => {
-        enemy.update!(deltaTime);
+        enemy.update(deltaTime);
         // 敵キャラが画面外となった場合、敵キャラ出力用配列から削除する
         if (enemy.markedForDeletion)
           this.enemies.splice((this.enemies as Enemy[]).indexOf(enemy), 1);
       });
+      // 衝突時のメッセージ
+      this.floatingMessages.forEach((message: IFloatingMessage) => {
+        message.update!();
+      });
+
       // handle particles
       this.particles.forEach((particle: Particle, index: number) => {
         particle.update();
-        if (particle.markedForDeletion) {
-          this.particles.splice(index, 1);
-        }
       });
       if (this.particles.length > this.maxParticles) {
         this.particles.length = this.maxParticles;
       }
       this.collisions.forEach((collision, index) => {
         collision.update(deltaTime);
-        if (collision.markedForDeletion) {
-          this.collisions.splice(index, 1);
-        }
       });
+      this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion);
+      this.particles = this.particles.filter(
+        (particle) => !particle.markedForDeletion
+      );
+      this.collisions = this.collisions.filter(
+        (collision) => !collision.markedForDeletion
+      );
+      this.floatingMessages = this.floatingMessages.filter(
+        (message) => !message.markedForDeletion
+      );
     }
 
     /**
@@ -151,6 +167,10 @@ window.addEventListener("load", function () {
       });
       this.collisions.forEach((collision: CollisionAnimation) => {
         collision.draw(context);
+      });
+      // 衝突時のメッセージ
+      this.floatingMessages.forEach((message: IFloatingMessage) => {
+        message.draw!(context);
       });
       //Uiパーツの出力
       this.ui.draw(context);

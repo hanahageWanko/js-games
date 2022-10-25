@@ -11,6 +11,7 @@ import {
   Hit,
 } from "./playerStates";
 import { CollisionAnimation } from "../CollisionAnimation";
+import { FloatingMessage } from "../floatingMessage";
 
 export class Player implements IPlayer {
   game;
@@ -168,8 +169,12 @@ export class Player implements IPlayer {
           this.currentState === this.states[5]
         ) {
           this.game.score++;
+          this.game.floatingMessages.push(
+            new FloatingMessage("+1", enemy.x, enemy.y, 150, 50)
+          );
         } else {
           this.setState(6, 0);
+          this.game.score -= 5;
           this.game.lives--;
           if (this.game.lives <= 0) {
             this.game.gameOver = true;

@@ -5,6 +5,7 @@ import { Player } from "../src/player/player";
 import { Background } from "../src/background";
 import { Particle } from "../src/particles";
 import { CollisionAnimation } from "../src/CollisionAnimation";
+import { FloatingMessage } from "../src/floatingMessage";
 
 let judge: boolean;
 const targetKeyArray: string[] = [
@@ -31,13 +32,15 @@ class Game implements IGame {
   game!: this;
   enemies: Enemy[];
   collisions: CollisionAnimation[];
+  floatingMessages: FloatingMessage[];
   enemyTimer: number;
   enemyInterval: number;
   maxParticles: number;
   score;
   fontColor;
-  particles = [];
+  particles: Particle[];
   time: number;
+  winningScore: number;
   maxTime: number;
   gameOver: boolean;
   lives: number;
@@ -54,12 +57,15 @@ class Game implements IGame {
     this.game = this;
     this.enemies = [];
     this.collisions = [];
+    this.floatingMessages = [];
+    this.particles = [];
     this.enemyTimer = 0;
     this.enemyInterval = 0;
     this.maxParticles = 50;
     this.score = 0;
     this.fontColor = "black";
     this.time = 0;
+    this.winningScore = 40;
     this.maxTime = 2000;
     this.gameOver = false;
     this.lives = 5;

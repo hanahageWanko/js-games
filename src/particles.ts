@@ -1,5 +1,8 @@
 import { IGame } from "./@types/main";
 
+/**
+ * 粒子系要素のクラス
+ */
 export class Particle {
   game;
   markedForDeletion;
