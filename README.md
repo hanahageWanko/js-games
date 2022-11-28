@@ -1,13 +1,12 @@
 # js-games
 
-TypeScriptで作ったゲーム
-demo ：https://warm-dolphin-c2f18a.netlify.app
-
-↑：ジャンプ
-←→：移動
-↓：しゃがみ
-Enter+方向キー：タックル
-200秒間の間にどれだけタックルで敵を倒せるか競うゲーム
+- TypeScriptで作ったゲーム
+- demo ：https://warm-dolphin-c2f18a.netlify.app
+  - ↑：ジャンプ
+  - ←→：移動
+  - ↓：しゃがみ
+  - Enter+方向キー：タックル
+  - 200秒間の間にどれだけタックルで敵を倒せるか競うゲーム
 
 ## eslint の初期構成
 
