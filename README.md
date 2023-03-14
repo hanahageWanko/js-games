@@ -1,4 +1,5 @@
 # js-games
+![img](https://user-images.githubusercontent.com/43740354/225034604-0f809b9f-9a97-41bf-acc0-aad63480f9ee.png)
 
 - TypeScriptで作ったゲーム
 - demo ：https://warm-dolphin-c2f18a.netlify.app
@@ -14,26 +15,13 @@
 3. ステージの追加
 4. スマホアプリ化
 
-## eslint の初期構成
+## Set up
+```bash
+yarn
+yarn start
+```
 
-- How would you like to use ESLint?
-  - To check syntax, find problems, and enforce code style
-- What type of modules does your project use?
-  - JavaScript modules (import/export)
-- Which framework does your project use?
-  - None of these
-- Does your project use TypeScript?
-  - Yes
-- Where does your code run?
-  - Browser
-  - Node
-- How would you like to define a style for your project?
-  - Use a popular style guide
-- Which style guide do you want to follow?
-- Standard
-- What format do you want your config file to be in?
-  - JavaScript
-- Would you like to install them now?
-  - Yes
-- Which package manager do you want to use?
-  - npm
+## build
+```bash
+yarn build
+```
