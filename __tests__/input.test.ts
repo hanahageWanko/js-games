@@ -4,7 +4,7 @@ import { InputHandler } from "../src/input";
 import { Player } from "../src/player/player";
 import { Background } from "../src/background";
 import { Particle } from "../src/particles";
-import { CollisionAnimation } from "../src/CollisionAnimation";
+import { CollisionAnimation } from "../src/collisionAnimation";
 import { FloatingMessage } from "../src/floatingMessage";
 
 let judge: boolean;

@@ -10,8 +10,8 @@ import {
   GroundEnemy,
   ClimbingEnemy,
 } from "./enemy/enemies";
-import { Ui } from "./Ui";
-import { CollisionAnimation } from "./CollisionAnimation";
+import { Ui } from "./ui";
+import { CollisionAnimation } from "./collisionAnimation";
 import { FloatingMessage } from "./floatingMessage";
 import { IFloatingMessage } from "./@types/floatingMessage";
 

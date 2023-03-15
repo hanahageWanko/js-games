@@ -10,7 +10,7 @@ import {
   Diving,
   Hit,
 } from "./playerStates";
-import { CollisionAnimation } from "../CollisionAnimation";
+import { CollisionAnimation } from "../collisionAnimation";
 import { FloatingMessage } from "../floatingMessage";
 
 export class Player implements IPlayer {
