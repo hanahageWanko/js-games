@@ -1,4 +1,4 @@
-import { IGame } from "./@types/main";
+import { iGame } from "./@types/main";
 
 /**
  * 粒子系要素のクラス
@@ -11,7 +11,7 @@ export class Particle {
   speedX: number;
   speedY: number;
   size: number;
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     this.game = game;
     this.markedForDeletion = false;
     this.x = 0;
@@ -33,7 +33,7 @@ export class Particle {
 
 export class Dust extends Particle {
   color: string;
-  constructor(game: IGame, x: number, y: number) {
+  constructor(game: iGame, x: number, y: number) {
     super(game);
     this.game = game;
     this.size = Math.random() * 10 + 10;
@@ -54,7 +54,7 @@ export class Dust extends Particle {
 export class Splash extends Particle {
   gravity: number;
   image;
-  constructor(game: IGame, x: number, y: number) {
+  constructor(game: iGame, x: number, y: number) {
     super(game);
     this.size = Math.random() * 100 + 100;
     this.x = x - this.size * 0.4;
@@ -84,7 +84,7 @@ export class Fire extends Particle {
   image;
   angle;
   va;
-  constructor(game: IGame, x: number, y: number) {
+  constructor(game: iGame, x: number, y: number) {
     super(game);
     this.image = document.getElementById("fire");
     this.size = Math.random() * 100 + 100;

@@ -1,14 +1,14 @@
-import { IGame } from "./@types/main";
+import { iGame } from "./@types/main";
 
 /**
  * 画面上のUI用クラス
  */
 export class Ui {
-  game: IGame;
+  game: iGame;
   fontSize: number;
   fontFamily: string;
   livesImage: HTMLElement | null;
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     this.game = game;
     this.fontSize = 30;
     this.fontFamily = "Creepster";

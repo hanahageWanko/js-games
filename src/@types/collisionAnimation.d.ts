@@ -1,8 +1,8 @@
 import commopnMemberTypes from "./commonMemberTypes";
-import { IGame } from "./main";
+import { iGame } from "./main";
 
 type ICollisionAnimationRequired = Required<{
-  game: IGame;
+  game: iGame;
   image: commopnMemberTypes.image;
   spriteWidth: number;
   spriteHeight: number;

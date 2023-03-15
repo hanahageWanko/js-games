@@ -1,10 +1,10 @@
-import { IGame } from "./@types/main";
+import { iGame } from "./@types/main";
 
 export class InputHandler {
   public keys: string[];
   game;
 
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     this.game = game;
     this.keys = [];
     /*

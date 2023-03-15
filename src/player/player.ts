@@ -1,4 +1,4 @@
-import { IGame } from "../@types/main";
+import { iGame } from "../@types/main";
 import { IEnemy } from "../@types/enemy";
 import { IPlayer } from "../@types/player";
 import {
@@ -33,7 +33,7 @@ export class Player implements IPlayer {
   frameInterval;
   frameTimer;
 
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     this.game = game;
     this.width = 100;
     this.height = 91.3;

@@ -5,7 +5,8 @@ import { Enemy } from "../enemy/enemies";
 import { FloatingMessage } from "../floatingMessage";
 import { IParticle } from "../@types/particles";
 
-type IGameRequired = Required<{
+// Gameクラスの型定義を定義する
+export declare class iGame {
   debug: boolean;
   width: number;
   height: number;
@@ -30,11 +31,13 @@ type IGameRequired = Required<{
   maxTime: number;
   gameOver: boolean;
   lives: number;
-}>;
+  constructor(
+    canvas: HTMLCanvasElement,
+    options?: { fps?: number; skipFrame?: number }
+  );
+  update(dt: number): void;
+  draw(ctx: CanvasRenderingContext2D): void;
+}
 
-type IGamePartial = Partial<{
-  update: (deltaTime: number) => void;
-  draw: (context: CanvasRenderingContext2D) => void;
-}>;
-
-type IGame = IGameRequired & IGamePartial;
+// 外部モジュールとしてエクスポートする
+export { iGame };

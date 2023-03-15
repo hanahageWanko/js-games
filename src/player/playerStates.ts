@@ -1,6 +1,6 @@
 import { Player } from "./player";
 import { Dust, Fire, Splash } from "../particles";
-import { IGame } from "../@types/main";
+import { iGame } from "../@types/main";
 interface statesI {
   SITTING: number;
   RUNNING: number;
@@ -29,9 +29,9 @@ const states: statesI = {
  */
 class State {
   state: string;
-  game: IGame;
+  game: iGame;
   // playerの状態をgameクラス経由で取得するように変更
-  constructor(state: string, game: IGame) {
+  constructor(state: string, game: iGame) {
     // stateには各キャラクターステータス状態マスタのキー名が入る
     this.state = state;
     this.game = game;
@@ -42,7 +42,7 @@ class State {
  * しゃがみ状態管理クラス
  */
 export class Sitting extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("SITTING", game);
   }
   /**
@@ -72,7 +72,7 @@ export class Sitting extends State {
  * 横移動状態管理クラス
  */
 export class Running extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("RUNNING", game);
   }
   /**
@@ -112,7 +112,7 @@ export class Running extends State {
  * ジャンプ状態管理クラス
  */
 export class Jumping extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("JUMPING", game);
   }
   /**
@@ -148,7 +148,7 @@ export class Jumping extends State {
  * ジャンプ落下状態管理クラス
  */
 export class Falling extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("FALLING", game);
   }
 
@@ -179,7 +179,7 @@ export class Falling extends State {
  * ローリング状態管理クラス
  */
 export class Rolling extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("ROLLING", game);
   }
 
@@ -228,7 +228,7 @@ export class Rolling extends State {
  * ダイビング状態管理クラス
  */
 export class Diving extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("DIVING", game);
   }
 
@@ -279,7 +279,7 @@ export class Diving extends State {
  * 敵との接触状態管理クラス
  */
 export class Hit extends State {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super("HIT", game);
   }
 

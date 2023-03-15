@@ -1,5 +1,5 @@
 import { IEnemy } from "../@types/enemy";
-import { IGame } from "../@types/main";
+import { iGame } from "../@types/main";
 
 /**
  * 敵キャラの設定クラス
@@ -19,8 +19,8 @@ export class Enemy implements IEnemy {
   width;
   height;
   markedForDeletion;
-  game: IGame;
-  constructor(game: IGame) {
+  game: iGame;
+  constructor(game: iGame) {
     this.game = game;
     this.frameX = 0;
     this.frameY = 0;
@@ -90,7 +90,7 @@ export class Enemy implements IEnemy {
 export class FlyingEnemy extends Enemy {
   angle: number;
   va: number;
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super(game);
     this.game = game;
     this.width = 60;
@@ -117,7 +117,7 @@ export class FlyingEnemy extends Enemy {
 }
 
 export class GroundEnemy extends Enemy {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super(game);
     this.game = game;
     this.width = 60;
@@ -132,7 +132,7 @@ export class GroundEnemy extends Enemy {
 }
 
 export class ClimbingEnemy extends Enemy {
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     super(game);
     this.game = game;
     this.width = 120;

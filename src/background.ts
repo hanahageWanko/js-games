@@ -1,7 +1,7 @@
-import { IGame } from "./@types/main";
+import { iGame } from "./@types/main";
 // 背景等レイヤー統括クラス
 class Layer {
-  game: IGame;
+  game: iGame;
   width: number;
   height: number;
   speedModifier: number;
@@ -9,7 +9,7 @@ class Layer {
   x: number;
   y: number;
   constructor(
-    game: IGame,
+    game: iGame,
     width: number,
     height: number,
     speedModifier: number,
@@ -46,7 +46,7 @@ class Layer {
 }
 
 export class Background {
-  game: IGame;
+  game: iGame;
   width: number;
   height: number;
   backgroundLayers: Layer[];
@@ -60,7 +60,7 @@ export class Background {
   layer3: Layer;
   layer4: Layer;
   layer5: Layer;
-  constructor(game: IGame) {
+  constructor(game: iGame) {
     this.game = game;
     this.width = 1667;
     this.height = 500;

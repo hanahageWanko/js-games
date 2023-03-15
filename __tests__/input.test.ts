@@ -1,4 +1,4 @@
-import { IGame } from "../src/@types/main";
+import { iGame } from "../src/@types/main";
 import { Enemy } from "../src/enemy/enemies";
 import { InputHandler } from "../src/input";
 import { Player } from "../src/player/player";
@@ -19,7 +19,7 @@ const targetKeyArray: string[] = [
 const targetKeyArrayDebug: string[] = ["e"];
 const unEspectedKeyArray: string[] = ["X", "1", "@"];
 
-class Game implements IGame {
+class Game implements iGame {
   debug = true;
   width: 0;
   height: 0;
@@ -69,6 +69,12 @@ class Game implements IGame {
     this.maxTime = 2000;
     this.gameOver = false;
     this.lives = 5;
+  }
+  update(dt: number): void {
+    throw new Error("Method not implemented.");
+  }
+  draw(ctx: CanvasRenderingContext2D): void {
+    throw new Error("Method not implemented.");
   }
 }
 const game = new Game();

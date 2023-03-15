@@ -1,7 +1,7 @@
 import commopnMemberTypes from "./commonMemberTypes";
 
 interface IPlayer {
-  game: IGame;
+  game: iGame;
   width: number;
   height: number;
   x: number;

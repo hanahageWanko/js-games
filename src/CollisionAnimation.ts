@@ -1,4 +1,4 @@
-import { IGame } from "./@types/main";
+import { iGame } from "./@types/main";
 import { ICollisionAnimation } from "./@types/collisionAnimation";
 
 /**
@@ -20,7 +20,7 @@ export class CollisionAnimation implements ICollisionAnimation {
   fps;
   frameInterval;
   frameTimer;
-  constructor(game: IGame, x: number, y: number) {
+  constructor(game: iGame, x: number, y: number) {
     this.game = game;
     this.image = document.getElementById("collisionAnimation");
     this.spriteWidth = 100;

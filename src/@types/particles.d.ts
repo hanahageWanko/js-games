@@ -1,7 +1,7 @@
-import { IGame } from "./main";
+import { iGame } from "./main";
 
 type IParticle = {
-  game: IGame;
+  game: iGame;
   markedForDeletion: boolean;
   x: number;
   y: number;

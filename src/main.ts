@@ -1,4 +1,4 @@
-import { IGame } from "./@types/main";
+import { iGame } from "./@types/main";
 import { IEnemy } from "./@types/enemy";
 import { Particle } from "./particles";
 import { Player } from "./player/player";
@@ -16,6 +16,7 @@ import { FloatingMessage } from "./floatingMessage";
 import { IFloatingMessage } from "./@types/floatingMessage";
 
 window.addEventListener("load", function () {
+  // HTML要素を取得
   const canvas = document.getElementById("canvas1") as HTMLCanvasElement;
   // canvasを2Dグラフィックを描画するためのメソッドやプロパティをもつオブジェクトを取得し、代入
   const ctx = canvas.getContext("2d");
@@ -25,7 +26,7 @@ window.addEventListener("load", function () {
   /**
    * Gameのレイアウトを定義
    */
-  class Game implements IGame {
+  class Game implements iGame {
     width;
     height;
     player: Player;
@@ -56,9 +57,9 @@ window.addEventListener("load", function () {
      * @param width number
      * @param height number
      */
-    constructor(width: number, height: number) {
-      this.width = width;
-      this.height = height;
+    constructor(canvas: HTMLCanvasElement) {
+      this.width = canvas.width;
+      this.height = canvas.height;
       // ゲーム画面最下部からのマージン
       this.groundMargin = 40;
       // ゲームのスピード設定値
@@ -193,7 +194,7 @@ window.addEventListener("load", function () {
     }
   }
 
-  const game = new Game(canvas.width, canvas.height);
+  const game = new Game(canvas);
   let lastTime = 0;
 
   function animate(timeStamp: number): void {

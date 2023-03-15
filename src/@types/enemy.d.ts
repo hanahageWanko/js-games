@@ -1,5 +1,5 @@
 import commopnMemberTypes from "./commonMemberTypes";
-import { IGame } from "./main";
+import { iGame } from "./main";
 
 type IEnemyRequired = Required<{
   frameX: commopnMemberTypes.frameX;
@@ -9,7 +9,7 @@ type IEnemyRequired = Required<{
   frameTimer: commopnMemberTypes.frameTimer;
   x: commopnMemberTypes.x;
   y: commopnMemberTypes.y;
-  game: IGame;
+  game: iGame;
   speedX: commopnMemberTypes.speedX;
   speedY: commopnMemberTypes.speedY;
   image: commopnMemberTypes.image;
