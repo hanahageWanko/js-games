@@ -49,68 +49,23 @@ export class Background {
   game: iGame;
   width: number;
   height: number;
-  backgroundLayers: Layer[];
-  layer1image: HTMLElement | null;
-  layer2image: HTMLElement | null;
-  layer3image: HTMLElement | null;
-  layer4image: HTMLElement | null;
-  layer5image: HTMLElement | null;
-  layer1: Layer;
-  layer2: Layer;
-  layer3: Layer;
-  layer4: Layer;
-  layer5: Layer;
-  constructor(game: iGame) {
+  backgroundLayers: Layer[] = [];
+  layerImages: HTMLElement[] = [];
+  layerImageNames: string[] = [];
+  constructor(game: iGame, layerImageNames: string[]) {
     this.game = game;
     this.width = 1667;
     this.height = 500;
-    this.layer1image = document.getElementById("layer1");
-    this.layer2image = document.getElementById("layer2");
-    this.layer3image = document.getElementById("layer3");
-    this.layer4image = document.getElementById("layer4");
-    this.layer5image = document.getElementById("layer5");
-    this.layer1 = new Layer(
-      this.game,
-      this.width,
-      this.height,
-      0, // default 0
-      this.layer1image as CanvasImageSource
-    );
-    this.layer2 = new Layer(
-      this.game,
-      this.width,
-      this.height,
-      0.1, // default 0.2
-      this.layer2image as CanvasImageSource
-    );
-    this.layer3 = new Layer(
-      this.game,
-      this.width,
-      this.height,
-      0.2, // default 0.4
-      this.layer3image as CanvasImageSource
-    );
-    this.layer4 = new Layer(
-      this.game,
-      this.width,
-      this.height,
-      0.3, // default 0.6
-      this.layer4image as CanvasImageSource
-    );
-    this.layer5 = new Layer(
-      this.game,
-      this.width,
-      this.height,
-      0.4, // default 0.8
-      this.layer5image as CanvasImageSource
-    );
-    this.backgroundLayers = [
-      this.layer1,
-      this.layer2,
-      this.layer3,
-      this.layer4,
-      this.layer5,
-    ];
+    layerImageNames.forEach((layerName, i) => {
+      const layer: Layer = new Layer(
+        this.game,
+        this.width,
+        this.height,
+        i / 10, // default 0
+        document.getElementById(`${layerName}`)! as CanvasImageSource
+      );
+      this.backgroundLayers.push(layer);
+    });
   }
 
   update(): void {
