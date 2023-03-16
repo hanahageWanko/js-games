@@ -34,4 +34,7 @@ module.exports = {
       },
     ],
   },
+  stats: {
+    errorDetails: true,
+  },
 };
