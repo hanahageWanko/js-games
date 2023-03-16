@@ -1,12 +1,13 @@
-import { Player } from "../Player";
+import { Player } from "../player/player";
 import { Background } from "../background";
 import { InputHandler } from "../input";
 import { Enemy } from "../enemy/enemies";
 import { FloatingMessage } from "../floatingMessage";
-import { IParticle } from "../@types/particles";
+import { iParticle } from "../@types/particles";
+import { CollisionAnimation } from "../collisionAnimation";
 
 // Gameクラスの型定義を定義する
-export declare class iGame {
+declare class iGame {
   debug: boolean;
   width: number;
   height: number;
@@ -16,7 +17,7 @@ export declare class iGame {
   speed: number;
   maxSpeed: number;
   background: Background;
-  game: Game;
+  game: iGame;
   enemies: Enemy[];
   collisions: CollisionAnimation[];
   floatingMessages: FloatingMessage[];
@@ -25,7 +26,7 @@ export declare class iGame {
   maxParticles: number;
   score: number;
   fontColor: string;
-  particles: IParticle[];
+  particles: iParticle[];
   time: number;
   winningScore: number;
   maxTime: number;

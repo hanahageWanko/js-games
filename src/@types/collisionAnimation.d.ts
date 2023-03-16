@@ -1,30 +1,22 @@
-import commopnMemberTypes from "./commonMemberTypes";
-import { iGame } from "./main";
+import { commonMemberTypes } from "./@types/commonMemberTypes";
+import { iGame } from "./@types/main";
 
-type ICollisionAnimationRequired = Required<{
+export type iCollisionAnimation = {
   game: iGame;
-  image: commopnMemberTypes.image;
+  image: HTMLElement | null;
   spriteWidth: number;
   spriteHeight: number;
   sizeModifier: number;
-  width: commopnMemberTypes.width;
-  height: commopnMemberTypes.height;
-  x: commopnMemberTypes.x;
-  y: commopnMemberTypes.y;
-  frameX: commopnMemberTypes.frameX;
-  maxFrame: commopnMemberTypes.maxFrame;
+  width: commonMemberTypes.width;
+  height: commonMemberTypes.height;
+  x: commonMemberTypes.x;
+  y: commonMemberTypes.y;
+  frameX: commonMemberTypes.frameX;
+  maxFrame: commonMemberTypes.maxFrame;
   markedForDeletion: boolean;
   fps: number;
   frameInterval: number;
   frameTimer: number;
   update: (deltaTime: number) => void;
   draw: (context: CanvasRenderingContext2D) => void;
-}>;
-
-type ICollisionAnimationPartial = Partial<{
-  // update: (deltaTime: number) => void;
-  // draw: (context: CanvasRenderingContext2D) => void;
-}>;
-
-type ICollisionAnimation = ICollisionAnimationRequired &
-  ICollisionAnimationPartial;
+};

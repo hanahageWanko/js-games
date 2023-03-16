@@ -1,10 +1,10 @@
 import { iGame } from "./@types/main";
-import { ICollisionAnimation } from "./@types/collisionAnimation";
+import { iCollisionAnimation } from "./@types/collisionAnimation";
 
 /**
  * 衝突衝突アニメーション用クラス
  */
-export class CollisionAnimation implements ICollisionAnimation {
+export class CollisionAnimation implements iCollisionAnimation {
   game;
   image;
   spriteWidth;

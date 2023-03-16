@@ -1,5 +1,8 @@
 import { iGame } from "./@types/main";
 
+/**
+ * 入力キー設定クラス
+ */
 export class InputHandler {
   public keys: string[];
   game;

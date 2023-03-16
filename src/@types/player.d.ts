@@ -1,6 +1,7 @@
-import commopnMemberTypes from "./commonMemberTypes";
+import { commonMemberTypes } from "./@types/commonMemberTypes";
+import { iGame } from "./main";
 
-interface IPlayer {
+interface iPlayer {
   game: iGame;
   width: number;
   height: number;
@@ -13,10 +14,10 @@ interface IPlayer {
   weight: number;
   currentState: Sitting | Running | Jumping | Falling | Rolling | Diving | Hit;
   states: Array<Sitting | Running | Jumping | Falling | Rolling | Diving | Hit>;
-  frameX: commopnMemberTypes.frameX;
-  frameY: commopnMemberTypes.frameY;
+  frameX: commonMemberTypes.frameX;
+  frameY: commonMemberTypes.frameY;
   maxFrame: number;
-  fps: commopnMemberTypes.fps;
-  frameInterval: commopnMemberTypes.frameInterval;
-  frameTimer: commopnMemberTypes.frameTimer;
+  fps: commonMemberTypes.fps;
+  frameInterval: commonMemberTypes.frameInterval;
+  frameTimer: commonMemberTypes.frameTimer;
 }

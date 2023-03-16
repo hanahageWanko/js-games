@@ -1,6 +1,6 @@
-import { iGame } from "./main";
+import { iGame } from "./@types/main";
 
-type IParticle = {
+type iParticle = {
   game: iGame;
   markedForDeletion: boolean;
   x: number;

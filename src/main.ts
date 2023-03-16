@@ -1,9 +1,11 @@
 import { iGame } from "./@types/main";
-import { IEnemy } from "./@types/enemy";
+import { iEnemy } from "./@types/enemy";
+import { iFloatingMessage } from "./@types/floatingMessage";
 import { Particle } from "./particles";
-import { Player } from "./player/player";
 import { InputHandler } from "./input";
 import { Background } from "./background";
+
+import { Player } from "./player/player";
 import {
   Enemy,
   FlyingEnemy,
@@ -13,7 +15,6 @@ import {
 import { Ui } from "./ui";
 import { CollisionAnimation } from "./collisionAnimation";
 import { FloatingMessage } from "./floatingMessage";
-import { IFloatingMessage } from "./@types/floatingMessage";
 
 window.addEventListener("load", function () {
   // HTML要素を取得
@@ -36,7 +37,7 @@ window.addEventListener("load", function () {
     maxSpeed;
     background: Background;
     game!: Game;
-    enemies: IEnemy[];
+    enemies: iEnemy[];
     particles: Particle[];
     collisions: CollisionAnimation[];
     floatingMessages: FloatingMessage[];
@@ -118,14 +119,14 @@ window.addEventListener("load", function () {
         this.enemyTimer += deltaTime;
       }
       // 敵キャラ
-      this.enemies.forEach((enemy: IEnemy) => {
+      this.enemies.forEach((enemy: iEnemy) => {
         enemy.update(deltaTime);
         // 敵キャラが画面外となった場合、敵キャラ出力用配列から削除する
         if (enemy.markedForDeletion)
           this.enemies.splice((this.enemies as Enemy[]).indexOf(enemy), 1);
       });
       // 衝突時のメッセージ
-      this.floatingMessages.forEach((message: IFloatingMessage) => {
+      this.floatingMessages.forEach((message: iFloatingMessage) => {
         message.update!();
       });
 
@@ -160,7 +161,7 @@ window.addEventListener("load", function () {
       // キャラクターを出力
       this.player.draw(context);
       // 敵キャラの出力
-      this.enemies.forEach((enemy: IEnemy) => {
+      this.enemies.forEach((enemy: iEnemy) => {
         enemy.draw(context);
       });
       this.particles.forEach((particle: Particle) => {
@@ -170,7 +171,7 @@ window.addEventListener("load", function () {
         collision.draw(context);
       });
       // 衝突時のメッセージ
-      this.floatingMessages.forEach((message: IFloatingMessage) => {
+      this.floatingMessages.forEach((message: iFloatingMessage) => {
         message.draw!(context);
       });
       //Uiパーツの出力
@@ -223,3 +224,4 @@ window.addEventListener("load", function () {
   }
   animate(0);
 });
+export { iGame };

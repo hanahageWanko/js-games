@@ -1,29 +1,22 @@
-import commopnMemberTypes from "./commonMemberTypes";
+import { commonMemberTypes } from "./@types/commonMemberTypes";
 import { iGame } from "./main";
 
-type IEnemyRequired = Required<{
-  frameX: commopnMemberTypes.frameX;
-  frameY: commopnMemberTypes.frameY;
-  fps: commopnMemberTypes.fps;
-  frameInterval: commopnMemberTypes.frameInterval;
-  frameTimer: commopnMemberTypes.frameTimer;
-  x: commopnMemberTypes.x;
-  y: commopnMemberTypes.y;
+type iEnemy = {
+  frameX: commonMemberTypes.frameX;
+  frameY: commonMemberTypes.frameY;
+  fps: commonMemberTypes.fps;
+  frameInterval: commonMemberTypes.frameInterval;
+  frameTimer: commonMemberTypes.frameTimer;
+  x: commonMemberTypes.x;
+  y: commonMemberTypes.y;
   game: iGame;
-  speedX: commopnMemberTypes.speedX;
-  speedY: commopnMemberTypes.speedY;
-  image: commopnMemberTypes.image;
-  width: commopnMemberTypes.width;
-  height: commopnMemberTypes.height;
+  speedX: commonMemberTypes.speedX;
+  speedY: commonMemberTypes.speedY;
+  image: commonMemberTypes.image;
+  width: commonMemberTypes.width;
+  height: commonMemberTypes.height;
   markedForDeletion: boolean;
-  maxFrame: commopnMemberTypes.maxFrame;
+  maxFrame: commonMemberTypes.maxFrame;
   update: (deltaTime: number) => void;
   draw: (context: CanvasRenderingContext2D) => void;
-}>;
-
-type IEnemyPartial = Partial<{
-  // update: (deltaTime: number) => void;
-  // draw: (context: CanvasRenderingContext2D) => void;
-}>;
-
-type IEnemy = IEnemyRequired & IEnemyPartial;
+};

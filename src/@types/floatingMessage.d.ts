@@ -1,18 +1,18 @@
-import commopnMemberTypes from "./commonMemberTypes";
+import { commonMemberTypes } from "./@types/commonMemberTypes";
 
-type IFloatingMessageRequired = Required<{
+type iFloatingMessageRequired = Required<{
   value: string;
-  x: commopnMemberTypes.x;
-  y: commopnMemberTypes.y;
+  x: commonMemberTypes.x;
+  y: commonMemberTypes.y;
   targetX: number;
   targetY: number;
   markedForDeletion: boolean;
   timer: number;
 }>;
 
-type IFloatingMessagePartial = Partial<{
+type iFloatingMessagePartial = Partial<{
   update: () => void;
   draw: (context: CanvasRenderingContext2D) => void;
 }>;
 
-type IFloatingMessage = IFloatingMessageRequired & IFloatingMessagePartial;
+type iFloatingMessage = iFloatingMessageRequired & iFloatingMessagePartial;

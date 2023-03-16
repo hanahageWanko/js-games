@@ -1,10 +1,10 @@
-import { IEnemy } from "../@types/enemy";
+import { iEnemy } from "../@types/enemy";
 import { iGame } from "../@types/main";
 
 /**
  * 敵キャラの設定クラス
  */
-export class Enemy implements IEnemy {
+export class Enemy implements iEnemy {
   frameX;
   frameY;
   fps;
@@ -15,7 +15,7 @@ export class Enemy implements IEnemy {
   speedX;
   speedY;
   maxFrame;
-  image: CanvasImageSource | null;
+  image!: CanvasImageSource;
   width;
   height;
   markedForDeletion;
@@ -34,7 +34,6 @@ export class Enemy implements IEnemy {
     this.maxFrame = 0;
     this.width = 0;
     this.height = 0;
-    this.image = null;
     this.markedForDeletion = false;
   }
 

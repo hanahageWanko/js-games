@@ -1,9 +1,9 @@
-import { IFloatingMessage } from "./@types/floatingMessage";
+import { iFloatingMessage } from "./@types/floatingMessage";
 
 /**
  * 衝突時のスコアクラス
  */
-export class FloatingMessage implements IFloatingMessage {
+export class FloatingMessage implements iFloatingMessage {
   value;
   x;
   y;

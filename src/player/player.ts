@@ -1,6 +1,6 @@
 import { iGame } from "../@types/main";
-import { IEnemy } from "../@types/enemy";
-import { IPlayer } from "../@types/player";
+import { iEnemy } from "../@types/enemy";
+import { iPlayer } from "../@types/player";
 import {
   Sitting,
   Running,
@@ -13,7 +13,7 @@ import {
 import { CollisionAnimation } from "../collisionAnimation";
 import { FloatingMessage } from "../floatingMessage";
 
-export class Player implements IPlayer {
+export class Player implements iPlayer {
   game;
   width;
   height;
@@ -148,7 +148,7 @@ export class Player implements IPlayer {
    * 敵との接触判定
    */
   checkCollision() {
-    this.game.enemies.forEach((enemy: IEnemy) => {
+    this.game.enemies.forEach((enemy: iEnemy) => {
       if (
         enemy.x < this.x + this.width &&
         enemy.x + enemy.width > this.x &&
