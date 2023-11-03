@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    js-games:
+      build:
+        # DockerFileの存在するパス
+        context: ./
+        # DockerFileの名称(devやlocalで分けるときは、ここのファイル名を「Dockerfile.devとかにする」)
+        dockerfile: Dockerfile
+      # image: node:18.17
+      # コンテナ名
+      container_name: js-games
+      # 再起動設定(設定は、常に再起動を適用)
+      restart: unless-stopped
+      # コンテナ内の作業ディレクトリ
+      working_dir: /var/www/
+      volumes:
+        - ./:/var/www
+      tty: true
+      environment:
+        - CHOKIDAR_USEPOLLING=true
+      ports:
+        - '3001:3001'
+        - '24678:24678'

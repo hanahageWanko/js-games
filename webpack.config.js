@@ -23,6 +23,9 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"),
     },
+    // 開発用のポート
+    host: '0.0.0.0',
+    port: 3001
   },
   // モジュールに適用するルールの設定（ここではローダーの設定を行う事が多い）
   module: {
