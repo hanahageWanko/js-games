@@ -157,7 +157,6 @@ class Game implements iGame {
    * @param context CanvasRenderingContext2D
    */
   draw(context: CanvasRenderingContext2D): void {
-    console.log(context);
     this.background.draw(context);
     // キャラクターを出力
     this.player.draw(context);
